@@ -2,7 +2,7 @@
 
 void fsm_fire(gptimer_handle_t gptimer)
 {
-    static STATES state = INIT;
+    static STATES state = CHECK;        // TODO: Start on INIT, but to debug this is better
     static STATES next_state;
 
     printf("STATE: %d\n", state);

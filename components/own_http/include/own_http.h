@@ -19,7 +19,7 @@
     // TELEGRAM
 //#define TELEGRAM_ID "XXX:XXXXXX"                                                                          // Inside secrets.h
 //#define CHAT_ID_DANI "XXXXXXXX"                                                                           // Inside secrets.h
-#define URL_TELEGRAM "https://api.telegram.org/"TELEGRAM_ID"/sendMessage?chat_id="CHAT_ID_DANI"&text="
+#define URL_TELEGRAM "https://api.telegram.org/bot"TELEGRAM_ID"/sendMessage?chat_id="CHAT_ID_DANI"&text="
 
 
 // Global Variables

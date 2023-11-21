@@ -53,8 +53,8 @@ __uint8_t checkSensors(){
     vTaskDelay(pdMS_TO_TICKS(100));  
     value = (float)esp_adc_cal_raw_to_voltage(value, &adc_cal); 
     if(value <= MOISTURE_FAIL_THRESHOLD){
-        error_flags = 1;
-        printf("\rMoisture sensor disconected \n\n");
+        error_flags = 1;                              // TODO
+        printf("\rMoisture sensor disconected\n\n");
         return 0; 
     } 
 
@@ -105,6 +105,8 @@ __uint64_t checkMoisture()    // Do it in the interruption handle
 
 // Irrigate an especific time
 void irrig(){
+    static __uint64_t prevDay = 999;
+
     float t = 0;        // Calculated time to irrigate
 
     float ETc = ET0 * calcKc(); // Calculate ETc in mm/d
@@ -117,8 +119,12 @@ void irrig(){
 
     printf("Fire! ... Or better, Irrigate!!\nOpenning Valv\n");         // TODO
     // Open Valv
-    //gpio_set_level(GPIO_VALV, 1);   
-    trigger_Telegram_POST(ETc);     // Send data to Telegram Bot
+    gpio_set_level(GPIO_VALV, 1);   
+    if(nDays != prevDay){
+        prevDay = nDays;
+        // Send data to Telegram Bot
+        trigger_Telegram_POST(ETc); 
+    }    
 
     vTaskDelay(t*1000 / portTICK_PERIOD_MS);         
     // Close Valv

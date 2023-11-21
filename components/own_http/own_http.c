@@ -149,9 +149,14 @@ void trigger_http_request(const char *url)
 
 // Send Irrigation Data (L) to Telegram BOT
 void trigger_Telegram_POST(float ETc){
-    char *url = ""; // Telegram Bot's URL
-    //strcat();       // Append Data
+    char ETchar[25];
+    char url[sizeof(URL_TELEGRAM)+ 50] = URL_TELEGRAM; // Telegram Bot's URL
 
+    sprintf(ETchar, "%.2f", ETc); // Transform float to char*
+    strcat(url, "Hoy%20es%20necesario%20Regar%20");     // Append Text of MSG
+    strcat(url, ETchar);                        // Append Data 
+    strcat(url, "L");     // Append Units
+    
     esp_http_client_config_t config = {
         .url = url,
     };

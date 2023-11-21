@@ -130,8 +130,6 @@ void getTemp(char* data, char* max, char* min){
 void getDate(char* extract){      // Data format: Fri, 10 Nov 2023 12:41:04 GMT
     struct tm parsed;
 
-    __uint8_t day;
-
     static __uint8_t prevDay   = 40;
     static __uint8_t prevMonth = 40;
 
